@@ -11,7 +11,6 @@ public:
     size_t size() const;
     Fl_Widget* at(size_t idx);
     Fl_Widget* operator[](size_t idx);
-    void reserve(size_t sz);
     void push_back(Fl_Widget* w);
     ~WidgetVec();
 };

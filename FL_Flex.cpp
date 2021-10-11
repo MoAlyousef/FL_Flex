@@ -14,22 +14,17 @@ Fl_Widget* WidgetVec::at(size_t idx) { return buf[idx]; }
 
 Fl_Widget* WidgetVec::operator[](size_t idx) { return at(idx); }
 
-void WidgetVec::reserve(size_t sz)
-{
-    Fl_Widget** new_buf = new Fl_Widget*[sz];
-    memcpy(new_buf, buf, sz);
-    cap = sz;
-    len = sz;
-    delete[] buf;
-    buf = new_buf;
-}
-
 void WidgetVec::push_back(Fl_Widget* w)
 {
-    if (len >= cap) {
-        reserve(cap * 2);
+    if (len == cap) {
+        cap = cap * 2;
+        Fl_Widget** new_buf = new Fl_Widget*[cap];
+        for (size_t i = 0; i < len; i++) new_buf[i] = buf[i];
+        delete[] buf;
+        buf = new_buf;
     }
-    buf[len++] = w;
+    buf[len] = w;
+    len++;
 }
 
 WidgetVec::~WidgetVec()
