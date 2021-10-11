@@ -16,13 +16,10 @@ Fl_Widget* WidgetVec::operator[](size_t idx) { return at(idx); }
 
 void WidgetVec::reserve(size_t sz)
 {
-    if (buf == 0) {
-        len = 0;
-        cap = 0;
-    }
     Fl_Widget** new_buf = new Fl_Widget*[sz];
     memcpy(new_buf, buf, sz);
     cap = sz;
+    len = sz;
     delete[] buf;
     buf = new_buf;
 }
@@ -44,7 +41,6 @@ bool Fl_Flex::_debug = false;
 
 Fl_Flex::Fl_Flex(uchar direction)
     : Fl_Group(0, 0, 0, 0, 0)
-    , setsized(WidgetVec {})
 {
     type(direction);
     debug();
@@ -52,7 +48,6 @@ Fl_Flex::Fl_Flex(uchar direction)
 
 Fl_Flex::Fl_Flex(int w, int h, uchar direction)
     : Fl_Group(0, 0, w, h, 0)
-    , setsized(WidgetVec {})
 {
     type(direction);
     debug();
@@ -60,7 +55,6 @@ Fl_Flex::Fl_Flex(int w, int h, uchar direction)
 
 Fl_Flex::Fl_Flex(int x, int y, int w, int h, uchar direction)
     : Fl_Group(x, y, w, h, 0)
-    , setsized(WidgetVec {})
 {
     type(direction);
     debug();
@@ -68,7 +62,6 @@ Fl_Flex::Fl_Flex(int x, int y, int w, int h, uchar direction)
 
 Fl_Flex::Fl_Flex(int x, int y, int w, int h, const char* label)
     : Fl_Group(x, y, w, h, label)
-    , setsized(WidgetVec {})
 {
     type(ROW);
     debug();
