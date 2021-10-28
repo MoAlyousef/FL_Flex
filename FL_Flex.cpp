@@ -84,7 +84,7 @@ void Fl_Flex::resizeRow(int x, int y, int w, int h)
 
     // Calculate total width minus padding
     for (int i = 1; i < cc; i++) {
-        padW -= 5;
+        padW -= _pad;
     }
 
     int cx = x + _margin;
