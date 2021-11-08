@@ -2,7 +2,8 @@
 
 #include <FL/Fl.H>
 
-WidgetVec::WidgetVec() : buf(new Fl_Widget *[10]), cap(10), len(0) {}
+WidgetVec::WidgetVec() : buf(new Fl_Widget *[10]), cap(10), len(0) {
+}
 
 size_t WidgetVec::size() const {
     return len;
@@ -92,7 +93,12 @@ void Fl_Flex::resizeRow(int x, int y, int w, int h) {
     }
 
     // Orphaned space which is not evenly distributable
-    int osp = (padW - nrs) % (cc - (int)setsized.size());
+    int osp;
+    if (cc - (int)setsized.size() == 0) {
+        osp = 0;
+    } else {
+        osp = (padW - nrs) % (cc - (int)setsized.size());
+    }
 
     // Set children to shared width of remaining
     for (int i = 0; i < cc; i++) {
@@ -138,7 +144,12 @@ void Fl_Flex::resizeCol(int x, int y, int w, int h) {
     }
 
     // Orphaned space which is not evenly distributable
-    int osp = (padH - nrs) % (cc - (int)setsized.size());
+    int osp;
+    if (cc - (int)setsized.size() == 0) {
+        osp = 0;
+    } else {
+        osp = (padH - nrs) % (cc - (int)setsized.size());
+    }
 
     // Set children to shared width of remaining
     for (int i = 0; i < cc; i++) {
