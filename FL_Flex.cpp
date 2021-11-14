@@ -2,38 +2,6 @@
 
 #include <FL/Fl.H>
 
-WidgetVec::WidgetVec() : buf(new Fl_Widget *[10]), cap(10), len(0) {
-}
-
-size_t WidgetVec::size() const {
-    return len;
-}
-
-Fl_Widget *WidgetVec::at(size_t idx) {
-    return buf[idx];
-}
-
-Fl_Widget *WidgetVec::operator[](size_t idx) {
-    return at(idx);
-}
-
-void WidgetVec::push_back(Fl_Widget *w) {
-    if (len == cap) {
-        cap = cap * 2;
-        Fl_Widget **new_buf = new Fl_Widget *[cap];
-        for (size_t i = 0; i < len; i++)
-            new_buf[i] = buf[i];
-        delete[] buf;
-        buf = new_buf;
-    }
-    buf[len] = w;
-    len++;
-}
-
-WidgetVec::~WidgetVec() {
-    delete[] buf;
-}
-
 bool Fl_Flex::_debug = false;
 
 Fl_Flex::Fl_Flex(uchar direction) : Fl_Group(0, 0, 0, 0, 0) {
@@ -183,6 +151,17 @@ void Fl_Flex::resize(int x, int y, int w, int h) {
         resizeCol(x, y, w, h);
     } else {
         resizeRow(x, y, w, h);
+    }
+}
+
+void Fl_Flex::remove(Fl_Widget &w) {
+    Fl_Group::remove(w);
+    Fl_Widget *t = &w;
+    for (size_t i = 0; i < setsized.size(); i++) {
+        if (t == setsized.at(i)) {
+            setsized.erase(setsized.begin() + i);
+            break;
+        }
     }
 }
 

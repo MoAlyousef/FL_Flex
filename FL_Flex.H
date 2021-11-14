@@ -1,19 +1,10 @@
+#pragma once
+
 #include <FL/Fl_Group.H>
 #include <FL/fl_types.h>
+#include "../src/cfl_vec.hpp"
 
-class WidgetVec {
-    Fl_Widget** buf;
-    size_t cap;
-    size_t len;
-
-public:
-    WidgetVec();
-    size_t size() const;
-    Fl_Widget* at(size_t idx);
-    Fl_Widget* operator[](size_t idx);
-    void push_back(Fl_Widget* w);
-    ~WidgetVec();
-};
+using WidgetVec = Vec<Fl_Widget *>;
 
 struct Fl_Flex : public Fl_Group {
     static const uchar ROW = 0;
@@ -24,6 +15,7 @@ struct Fl_Flex : public Fl_Group {
     Fl_Flex(int x, int y, int w, int h, uchar direction);
     Fl_Flex(int x, int y, int w, int h, const char* label = nullptr);
 
+    virtual void remove(Fl_Widget &);
     virtual void end();
     virtual void resize(int x, int y, int w, int h);
 
