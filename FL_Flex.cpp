@@ -71,16 +71,21 @@ void Fl_Flex::resizeRow(int x, int y, int w, int h) {
     // Set children to shared width of remaining
     for (int i = 0; i < cc; i++) {
         Fl_Widget *c = child(i);
-
+        int num = 0;
+        if ((cc - (int)setsized.size()) == 0) {
+            num = 1;
+        } else {
+            num = (cc - (int)setsized.size());
+        }
         if (isSetSize(c)) {
             c->resize(cx, y + _margin, c->w(), h - _margin * 2);
         } else {
             if (osp > 0) {
                 osp -= 1;
-                c->resize(cx, y + _margin, (padW - nrs) / (cc - (int)setsized.size()) + 1,
+                c->resize(cx, y + _margin, (padW - nrs) / num + 1,
                           h - _margin * 2);
             } else {
-                c->resize(cx, y + _margin, (padW - nrs) / (cc - (int)setsized.size()),
+                c->resize(cx, y + _margin, (padW - nrs) / num,
                           h - _margin * 2);
             }
         }
@@ -130,13 +135,19 @@ void Fl_Flex::resizeCol(int x, int y, int w, int h) {
             // This is very handy to allow resizable items to have negative height
             // allowing one on the top and bottom to center contents even if container
             // is too small.
+            int num = 0;
+            if ((cc - (int)setsized.size()) == 0) {
+                num = 1;
+            } else {
+                num = (cc - (int)setsized.size());
+            }
             if (osp > 0) {
                 osp -= 1;
                 c->resize(x + _margin, cy, w - _margin * 2,
-                          (padH - nrs) / (cc - (int)setsized.size()) + 1);
+                          (padH - nrs) / num + 1);
             } else {
                 c->resize(x + _margin, cy, w - _margin * 2,
-                          (padH - nrs) / (cc - (int)setsized.size()));
+                          (padH - nrs) / num);
             }
         }
 
