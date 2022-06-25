@@ -16,6 +16,7 @@ struct Fl_Flex : public Fl_Group {
     Fl_Flex(int x, int y, int w, int h, const char* label = nullptr);
 
     virtual void remove(Fl_Widget &);
+    virtual void clear();
     virtual void end();
     virtual void resize(int x, int y, int w, int h);
 

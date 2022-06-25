@@ -176,6 +176,11 @@ void Fl_Flex::remove(Fl_Widget &w) {
     }
 }
 
+void Fl_Flex::clear() {
+    Fl_Group::clear();
+    setsized.clear();
+}
+
 void Fl_Flex::end() {
     Fl_Group::end();
     resize(x(), y(), w(), h());
